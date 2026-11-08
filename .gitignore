@@ -1,0 +1,7 @@
+node_modules/
+public/vendor/
+test/fixtures/*.jpg
+test/output/
+dist/
+*.part
+.DS_Store

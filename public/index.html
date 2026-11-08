@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self'; img-src 'self' blob: data:; media-src 'self' blob: mediastream:; style-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mirage 실시간 탐지</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="panel" aria-labelledby="title">
+    <header class="head">
+      <h1 id="title">Mirage 실시간 탐지</h1>
+      <p class="sub">카메라를 켜면 이 기기 안에서 계속 물체를 찾아 상자로 보여 드려요.</p>
+    </header>
+
+    <p id="synthetic-banner" class="synthetic" hidden role="note">
+      합성 테스트 입력 · 공식 예제 사진(coco-231049.jpg)을 가짜 카메라로 재생 중 — 실제 카메라 아님
+    </p>
+
+    <section class="stage" id="stage" aria-label="카메라 화면">
+      <video id="video" playsinline muted aria-label="실시간 카메라 미리보기"></video>
+      <canvas id="overlay" aria-hidden="true"></canvas>
+      <div id="placeholder" class="placeholder">
+        <p>카메라는 시작 버튼을 눌러야 켜져요.<br>영상은 저장하거나 전송하지 않아요.</p>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button id="btn-start" class="primary" type="button">카메라 시작</button>
+      <button id="btn-stop" class="ghost" type="button" hidden>카메라 끄기</button>
+    </div>
+
+    <p id="status" class="status" role="status" aria-live="polite">모델 불러오는 중… (약 21.6 MB)</p>
+    <progress id="model-progress" class="model-progress" aria-label="모델 다운로드 진행"></progress>
+    <p id="metrics" class="metrics" hidden></p>
+    <p id="dets" class="dets" hidden></p>
+    <p id="error" class="error" role="alert" hidden></p>
+
+    <p class="note">상자는 마지막으로 처리한 프레임의 결과예요. 추론이 영상보다 느려서 움직이는 물체는 상자가 뒤따라와요 (추적 아님).</p>
+    <footer class="foot">
+      Mirage 51.3M · Cactus WASM 4.0.0 · 이 기기 안에서만 추론 · <a href="THIRD_PARTY_NOTICES.md">라이선스</a>
+    </footer>
+  </main>
+  <script src="detect.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
